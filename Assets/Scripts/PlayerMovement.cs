@@ -5,17 +5,40 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public CharacterController controller; 
-    public float speed = 12f; 
+    public float speed = 12f;
+    // for checking if player is on ground else gravity velocity will indefinetly icnrease
+    public Transform  groundCheck;
+    // distance to ground
+    public float groundDistance = 0.4f; 
+    // prevent the check to register on ground with the player 
+    public LayerMask groundMask; 
+    public float gravity = -9.81f;
 
+    // stores our current velocity mostly for gravity 
+    Vector3 velocity;
+    bool isGrounded; 
     // Update is called once per frame
     void Update()
     {
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical"); 
 
+        // Check if grounded in a spehere around the object GroundCheck at the bottom of the player (point, radius, <what to avoid>)
+        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+
+        if(isGrounded && velocity.y <0 ){
+            velocity.y = -2f; // could be 0 but -2 forces player in to the ground just makes things more robust 
+        }
+
         // direction in which we want to move we take transform. right and forward to take the local cordinates aka the relatives and not the absolutes 
         Vector3 move = transform.right * x + transform.forward * z; 
         // speed for speed, Time.deltaTiem to make it framereate independed again 
         controller.Move(move*speed*Time.deltaTime); 
+
+        // calculate falling velocity
+        velocity.y += gravity * Time.deltaTime; 
+        // delta y = 0.5 *g * t^2
+        controller.Move(velocity * Time.deltaTime); 
+        //Conductor.instance
     }
 }
