@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    [Header("Dashing")]
+    public float dashForce;
+    public float dashUpwardForce;
+    public float maxDashYSpeed;
+    public float dashDuration;
+
     public CharacterController controller; 
     public float speed = 12f;
     // for checking if player is on ground else gravity velocity will indefinetly icnrease
@@ -35,10 +42,27 @@ public class PlayerMovement : MonoBehaviour
         // speed for speed, Time.deltaTiem to make it framereate independed again 
         controller.Move(move*speed*Time.deltaTime); 
 
+        //TODO change jump button to dash aka rename Jump 
+        // Dash
+        if(Input.GetButtonDown("Jump") && isGrounded && Conductor.instance.onBeat()){
+            //Camera.main.transform.forward; 
+            controller.Move(Dash());
+        }
+
         // calculate falling velocity
         velocity.y += gravity * Time.deltaTime; 
         // delta y = 0.5 *g * t^2
         controller.Move(velocity * Time.deltaTime); 
         //Conductor.instance
+    }
+
+    private Vector3 Dash(){
+        // resets dash with delay 
+        Invoke(nameof(resetDash), dashDuration); 
+        Vector3 forceToApply = transform.forward * dashForce + transform.up * dashUpwardForce; 
+        return forceToApply; 
+    }
+    private void resetDash(){
+        // TODO I think this is no needed in our case also remove the invoke 
     }
 }

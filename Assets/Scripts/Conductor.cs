@@ -21,7 +21,6 @@ public class Conductor : MonoBehaviour
     public float firstBeatOffset;
     //the number of beats in each loop
     public float beatsPerLoop;
-
     //the total number of loops completed since the looping clip first started
     public int completedLoops = 0;
     //The current position of the song within the loop in beats.
@@ -30,6 +29,8 @@ public class Conductor : MonoBehaviour
     public float loopPositionInAnalog;
     //Conductor instance
     public static Conductor instance; 
+    // Error Margin for missing the beat in s
+    public float errorMargin = 0.2f; 
     void Awake()
     {
         instance = this;
@@ -60,5 +61,13 @@ public class Conductor : MonoBehaviour
         loopPositionInBeats = songPositionInBeats - completedLoops * beatsPerLoop;
         songPositionInBeats = songPosition / secPerBeat;
         loopPositionInAnalog = loopPositionInBeats / beatsPerLoop;
+    }
+
+    public bool onBeat(){
+        bool onBeat = false;
+        if((songPosition % secPerBeat - errorMargin) <= 0){
+            onBeat = true;
+        }
+        return onBeat; 
     }
 }
