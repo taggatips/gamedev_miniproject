@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+
+    [Header("Dashing")]
+    public float dashForce;
+    public float dashUpwardForce;
+    public float maxDashYSpeed;
+    public float dashDuration;
+
     public CharacterController controller; 
     public float speed = 12f;
     // for checking if player is on ground else gravity velocity will indefinetly icnrease
@@ -34,11 +41,29 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z; 
         // speed for speed, Time.deltaTiem to make it framereate independed again 
         controller.Move(move*speed*Time.deltaTime); 
+        print(isGrounded);
+        // Dash
+        if(Input.GetButtonDown("Jump") && isGrounded){
+            //Camera.main.transform.forward; 
+            print("---------------"); 
+            controller.Move(Dash());
+            print(Dash()); 
+        }
 
         // calculate falling velocity
         velocity.y += gravity * Time.deltaTime; 
         // delta y = 0.5 *g * t^2
         controller.Move(velocity * Time.deltaTime); 
         //Conductor.instance
+    }
+
+    private Vector3 Dash(){
+        // resets dash with delay 
+        Invoke(nameof(resetDash), dashDuration); 
+        Vector3 forceToApply = transform.forward * dashForce + transform.up * dashUpwardForce; 
+        return forceToApply; 
+    }
+    private void resetDash(){
+
     }
 }
