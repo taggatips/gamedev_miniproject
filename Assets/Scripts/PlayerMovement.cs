@@ -41,13 +41,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z; 
         // speed for speed, Time.deltaTiem to make it framereate independed again 
         controller.Move(move*speed*Time.deltaTime); 
-        print(isGrounded);
+
+        //TODO change jump button to dash aka rename Jump 
         // Dash
-        if(Input.GetButtonDown("Jump") && isGrounded){
+        if(Input.GetButtonDown("Jump") && isGrounded && Conductor.instance.onBeat()){
             //Camera.main.transform.forward; 
-            print("---------------"); 
             controller.Move(Dash());
-            print(Dash()); 
         }
 
         // calculate falling velocity
@@ -64,6 +63,6 @@ public class PlayerMovement : MonoBehaviour
         return forceToApply; 
     }
     private void resetDash(){
-
+        // TODO I think this is no needed in our case also remove the invoke 
     }
 }
