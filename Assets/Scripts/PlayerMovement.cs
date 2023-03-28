@@ -53,7 +53,7 @@ public class PlayerMovement : MonoBehaviour
         velocity.y += gravity * Time.deltaTime; 
         // delta y = 0.5 *g * t^2
         controller.Move(velocity * Time.deltaTime); 
-        print("current PlayerPos: " + transform.position);
+        //print("current PlayerPos: " + transform.position);
         //Conductor.instance
     }
 

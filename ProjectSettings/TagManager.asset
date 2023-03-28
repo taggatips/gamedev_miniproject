@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - LevelBlocker
+  - LevelComplete1
   layers:
   - Default
   - TransparentFX
