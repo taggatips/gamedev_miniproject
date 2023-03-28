@@ -6,11 +6,12 @@ using UnityEngine.SceneManagement;
 
 public class WinCheck : MonoBehaviour
 {
-    GameObject completeLevelUI;
+    private UiController UiC;
     
     // Start is called before the first frame update
     void Start()
     {
+        UiC = GameObject.Find("Canvas").GetComponent<UiController>(); 
         //completeLevelUI = GameObject.FindWithTag("LevelComplete1");
         //GameObject temp = GameObject.Find("LevelComplete1");
         //completeLevelUI = temp.GetComponent<Canvas>();
@@ -28,6 +29,7 @@ public class WinCheck : MonoBehaviour
         if (collider.transform.tag == "Player")
         {
             print("inif");
+            UiC.ShowLevelComplete();
             //completeLevelUI.SetActive(true);
         }
     }
