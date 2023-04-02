@@ -28,6 +28,8 @@ public class WallRunning : MonoBehaviour
     public Transform orientation; 
     private PlayerMovement pm; 
     private Rigidbody rb; 
+
+    private float originalPlayerSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,7 +43,8 @@ public class WallRunning : MonoBehaviour
         verticalInput = Input.GetAxisRaw("Vertical");
 
         // State 1 - Wallrunning (when the player should enter this state)
-        if((wallLeft || wallRight) && verticalInput > 0 && AboveGround()){
+        // TODO The (horizontalInput != 0 || verticalInput > 0) is not elegant player should stick to wall if either A,W,D are pressed
+        if((wallLeft || wallRight) && horizontalInput != 0  && AboveGround()){
             if(!pm.wallrunning){
                 StartWallRun();
             }
@@ -80,12 +83,17 @@ public class WallRunning : MonoBehaviour
     }
 
     private void StartWallRun(){
+        print("start wallrunhning");
         pm.wallrunning = true; 
     }
 
     private void WallRunningMovement(){
+        print("walrunning");
         // Disable gravity
-        pm.gravity = 0; 
+        pm.gravity = 0f;
+        // Set Player speed and save current one to reset after leving wall
+        originalPlayerSpeed = pm.speed; 
+        pm.speed = 1.5f; 
         // Set y velocity to 0
         rb.velocity = new Vector3(rb.velocity.x, 0f, rb.velocity.z);
         // Orientation of the wall, normal is the direction facing away from the wall 
@@ -97,7 +105,11 @@ public class WallRunning : MonoBehaviour
     }
 
     private void StopWallRun(){
+        print("stop wallruning");
+        // Reset Gravity
         pm.gravity = -9.81f;
+        // Reset Speed
+        pm.speed = originalPlayerSpeed; 
         pm.wallrunning = false; 
     }
 
