@@ -10,8 +10,13 @@ public class Dashing : MonoBehaviour
     private PlayerMovement pm;
     private Rigidbody rb; 
 
+    [Header("CameraEffects")]
+    public Camera cam; 
+    public float dashFov; 
+    private float orginalFov; 
+
     [Header("Dashing")]
-    public float dashForce;
+    public float dasSpeed;
     public float dashUpwardForce;
     public float maxDashYSpeed;
     public float dashDuration;
@@ -25,28 +30,40 @@ public class Dashing : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        pm = GetComponent<PlayerMovement>();   
+        pm = GetComponent<PlayerMovement>(); 
+        cam  = GetComponent<Camera>(); 
     }
      // Update is called once per frame
     void Update()
     {
         //TODO change jump button to dash aka rename Jump 
         //TODO (isGrounded || wallrunning) is isGrounded rly needed anymore since we can dash from walls?
-        if(Input.GetButtonDown("Jump") && Conductor.instance.onBeat())Dash(); 
+        if(Input.GetButtonDown("Jump") && Conductor.instance.onBeat()){
+            StartCoroutine(Dash());
+            //TODO as mentioned in the function called
+            Invoke(resetDash(), dashDuration + 0.05f);
+
+        }
     }
-    private void Dash(){
-        // set state do dash
+    IEnumerator Dash(){
+        float startTitme = Time.time;
         pm.dashing = true; 
-        Vector3 forceToApply = transform.forward * dashForce + transform.up * dashUpwardForce; 
-        pm.controller.Move(forceToApply);
-        // resets dash with delay 
-        Invoke(nameof(resetDash), dashDuration);  
-    
+        Vector3 forceToApply = transform.forward * dasSpeed + transform.up * dashUpwardForce;
+        // Nathy TODO fov
+        while(Time.time < startTitme + dashDuration){
+            pm.controller.Move(forceToApply * Time.deltaTime);
+            yield return null; 
+        }
+        
+
+
     }
 
-     private void resetDash(){
-        // TODO I think this is no needed in our case also remove the invoke
+    private string resetDash(){
+        //TODO returns string because Invoke in update() wants it todo remove this stuff is ugly af. 
         pm.dashing = false; 
+        // Nathy TODO fov
+        return "";
     }
 
    

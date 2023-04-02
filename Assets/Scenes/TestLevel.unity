@@ -411,11 +411,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 447125067}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &547170002 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1685175173, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
-  m_PrefabInstance: {fileID: 1073040789}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &631693151
 GameObject:
   m_ObjectHideFlags: 0
@@ -809,21 +804,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1499567636, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
+    - target: {fileID: 2076363857, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: dasSpeed
+      value: 20
       objectReference: {fileID: 0}
-    - target: {fileID: 7616490109728848117, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
-      propertyPath: gravity
-      value: -9.81
-      objectReference: {fileID: 0}
-    - target: {fileID: 7616490109728848117, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+    - target: {fileID: 2076363857, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: dashForce
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7616490109728848117, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
-      propertyPath: dashDuration
-      value: 0
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 7616490109728848118, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: m_RootOrder
@@ -989,11 +976,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 707987986fcfd9844aacc29a12167a2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1176806181 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7616490109681109211, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
-  m_PrefabInstance: {fileID: 1073040789}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1201588016
 GameObject:
   m_ObjectHideFlags: 0
@@ -1978,53 +1960,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1970220009}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2076363847 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7616490109728848120, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
-  m_PrefabInstance: {fileID: 1073040789}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2076363852
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076363847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e4f73b8a6947e3489d4a3069f763d7a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  whatIsWall:
-    serializedVersion: 2
-    m_Bits: 64
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64
-  wallRunForce: 200
-  maxWallRuntime: 4
-  wallCheckDistance: 0.7
-  minJumpHeight: 0
-  orientation: {fileID: 547170002}
---- !u!114 &2076363857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2076363847}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 815930e104dcb8e44b9311fac984391a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  orientation: {fileID: 547170002}
-  playerCam: {fileID: 1176806181}
-  dashForce: 5
-  dashUpwardForce: 0
-  maxDashYSpeed: 0
-  dashDuration: 0.25
-  dashCd: 0
 --- !u!1001 &8747679727688168825
 PrefabInstance:
   m_ObjectHideFlags: 0

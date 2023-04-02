@@ -80,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         //TODO we can probably do something about this script getting called after the wallrunning one by calling this script from wall running with a delay (invoke)
+        //https://youtu.be/QRYGrCWumFw?t=205 mabey similar to 
         if(wallrunning){
             velocity.y = 0f; 
         }
@@ -92,7 +93,6 @@ public class PlayerMovement : MonoBehaviour
         
         // speed for speed, Time.deltaTiem to make it framereate independed again 
         controller.Move(move*speed*Time.deltaTime); 
-
 
     }
 

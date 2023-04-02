@@ -83,12 +83,10 @@ public class WallRunning : MonoBehaviour
     }
 
     private void StartWallRun(){
-        print("start wallrunhning");
         pm.wallrunning = true; 
     }
 
     private void WallRunningMovement(){
-        print("walrunning");
         // Disable gravity
         pm.gravity = 0f;
         // Set Player speed and save current one to reset after leving wall
@@ -105,7 +103,6 @@ public class WallRunning : MonoBehaviour
     }
 
     private void StopWallRun(){
-        print("stop wallruning");
         // Reset Gravity
         pm.gravity = -9.81f;
         // Reset Speed
