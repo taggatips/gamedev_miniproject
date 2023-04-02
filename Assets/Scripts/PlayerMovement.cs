@@ -4,13 +4,23 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-
     [Header("Dashing")]
     public float dashForce;
     public float dashUpwardForce;
     public float maxDashYSpeed;
     public float dashDuration;
 
+    public bool dashing; 
+
+    [Header("Wallrunning")]
+    public bool wallrunning;
+
+    public enum MovementState{
+        walking,
+        wallrunning,
+        dashing
+    }
+    public MovementState state;     
     public CharacterController controller; 
     public float speed = 12f;
     // for checking if player is on ground else gravity velocity will indefinetly icnrease
@@ -24,45 +34,68 @@ public class PlayerMovement : MonoBehaviour
     // stores our current velocity mostly for gravity 
     Vector3 velocity;
     bool isGrounded; 
+    float horizontalInput;
+    float verticalInput;
+
     // Update is called once per frame
+    
     void Update()
     {
-        float x = Input.GetAxis("Horizontal");
-        float z = Input.GetAxis("Vertical"); 
-
         // Check if grounded in a spehere around the object GroundCheck at the bottom of the player (point, radius, <what to avoid>)
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
-        if(isGrounded && velocity.y <0 ){
+        MyInput();
+        MovePlayer();
+    }
+
+    private void MyInput(){
+        horizontalInput = Input.GetAxis("Horizontal");
+        verticalInput = Input.GetAxis("Vertical");
+    }
+    private void StateHandler(){
+        // Mode Dashing
+        if (dashing){
+            state = MovementState.dashing; 
+        }
+        // Mode wallrunning
+        else if(wallrunning){
+            state = MovementState.wallrunning; 
+        }
+        // Mode walking
+        else if(isGrounded){
+            state =  MovementState.walking; 
+        }
+    }
+
+    private void MovePlayer(){
+        if(state == MovementState.dashing) return; 
+        
+        // direction in which we want to move we take transform. right and forward to take the local cordinates aka the relatives and not the absolutes 
+        Vector3 move = transform.right * horizontalInput + transform.forward * verticalInput; 
+
+
+        // don't aply if is wallrunning 
+        if(isGrounded && velocity.y <0 && !wallrunning){
             velocity.y = -2f; // could be 0 but -2 forces player in to the ground just makes things more robust 
         }
 
-        // direction in which we want to move we take transform. right and forward to take the local cordinates aka the relatives and not the absolutes 
-        Vector3 move = transform.right * x + transform.forward * z; 
-        // speed for speed, Time.deltaTiem to make it framereate independed again 
-        controller.Move(move*speed*Time.deltaTime); 
-
-        //TODO change jump button to dash aka rename Jump 
-        // Dash
-        if(Input.GetButtonDown("Jump") && isGrounded && Conductor.instance.onBeat()){
-            //Camera.main.transform.forward; 
-            controller.Move(Dash());
+        //TODO we can probably do something about this script getting called after the wallrunning one by calling this script from wall running with a delay (invoke)
+        //https://youtu.be/QRYGrCWumFw?t=205 mabey similar to 
+        if(wallrunning){
+            velocity.y = 0f; 
         }
 
         // calculate falling velocity
         velocity.y += gravity * Time.deltaTime; 
         // delta y = 0.5 *g * t^2
         controller.Move(velocity * Time.deltaTime); 
-        //Conductor.instance
+
+        
+        // speed for speed, Time.deltaTiem to make it framereate independed again 
+        controller.Move(move*speed*Time.deltaTime); 
+
     }
 
-    private Vector3 Dash(){
-        // resets dash with delay 
-        Invoke(nameof(resetDash), dashDuration); 
-        Vector3 forceToApply = transform.forward * dashForce + transform.up * dashUpwardForce; 
-        return forceToApply; 
-    }
-    private void resetDash(){
-        // TODO I think this is no needed in our case also remove the invoke 
-    }
+    
+   
 }
