@@ -54,7 +54,6 @@ public class Dashing : MonoBehaviour
             pm.controller.Move(forceToApply * Time.deltaTime);
             yield return null; 
         }
-        print("in dash");
     }
 
     private string resetDash(){
@@ -62,7 +61,6 @@ public class Dashing : MonoBehaviour
         pm.dashing = false; 
         //TODO originalFOV should be some kind of gloabal setting/ variable 
         mouseLook.DoFov(orginalFov);
-        print("in dash reset");
         return "";
     }
 

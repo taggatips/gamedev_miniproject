@@ -88,8 +88,9 @@ public class PlayerMovement : MonoBehaviour
         // calculate falling velocity
         velocity.y += gravity * Time.deltaTime; 
         // delta y = 0.5 *g * t^2
-        controller.Move(velocity * Time.deltaTime); 
-
+        if(! dashing){
+            controller.Move(velocity * Time.deltaTime); 
+        }
         
         // speed for speed, Time.deltaTiem to make it framereate independed again 
         controller.Move(move*speed*Time.deltaTime); 

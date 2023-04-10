@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &135912327 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7616490109681109210, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+  m_PrefabInstance: {fileID: 1073040789}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 06f807d2c46282849bd1268469801079, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &207688659
 GameObject:
   m_ObjectHideFlags: 0
@@ -5605,12 +5616,24 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2076363857, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: dashFov
+      value: 110
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076363857, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: dasSpeed
       value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 2076363857, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: dashForce
       value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 2076363857, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: mouseLook
+      value: 
+      objectReference: {fileID: 135912327}
+    - target: {fileID: 2076363857, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: orginalFov
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 7616490109728848118, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: m_RootOrder
