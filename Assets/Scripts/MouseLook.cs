@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening; 
 
 public class MouseLook : MonoBehaviour
 {
@@ -32,5 +33,9 @@ public class MouseLook : MonoBehaviour
         transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
         // rotates the player around the y axis 
         playerBody.Rotate(Vector3.up * mouseX); 
+    }
+
+    public void DoFov(float endValue){
+        GetComponent<Camera>().DOFieldOfView(endValue,0.1f);
     }
 }
