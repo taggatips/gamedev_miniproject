@@ -25,12 +25,15 @@ public class WinCheck : MonoBehaviour
     }
     void OnTriggerEnter(Collider collider)
     {
-        print("intrigger");
         if (collider.transform.tag == "Player")
         {
-            print("inif");
-            UiC.ShowLevelComplete();
-            //completeLevelUI.SetActive(true);
+            StartCoroutine(WaitAndLoadWinScreen());
         }
+    }
+
+    IEnumerator WaitAndLoadWinScreen()
+    {
+        yield return new WaitForSeconds(1);
+        SceneManager.LoadScene("WinScreen");
     }
 }
