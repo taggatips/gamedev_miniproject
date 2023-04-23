@@ -11,9 +11,9 @@ public class Dashing : MonoBehaviour
     private Rigidbody rb; 
 
     [Header("CameraEffects")]
-    public Camera cam; 
+    public MouseLook mouseLook; 
     public float dashFov; 
-    private float orginalFov; 
+    public float orginalFov; 
 
     [Header("Dashing")]
     public float dasSpeed;
@@ -31,7 +31,6 @@ public class Dashing : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>(); 
-        cam  = GetComponent<Camera>(); 
     }
      // Update is called once per frame
     void Update()
@@ -41,7 +40,7 @@ public class Dashing : MonoBehaviour
         if(Input.GetButtonDown("Jump") && Conductor.instance.onBeat()){
             StartCoroutine(Dash());
             //TODO as mentioned in the function called
-            Invoke(resetDash(), dashDuration + 0.05f);
+            Invoke("resetDash", dashDuration + 0.05f);
 
         }
     }
@@ -49,20 +48,19 @@ public class Dashing : MonoBehaviour
         float startTitme = Time.time;
         pm.dashing = true; 
         Vector3 forceToApply = transform.forward * dasSpeed + transform.up * dashUpwardForce;
-        // Nathy TODO fov
+        // Set FOV and save og value
+        mouseLook.DoFov(dashFov);
         while(Time.time < startTitme + dashDuration){
             pm.controller.Move(forceToApply * Time.deltaTime);
             yield return null; 
         }
-        
-
-
     }
 
     private string resetDash(){
-        //TODO returns string because Invoke in update() wants it todo remove this stuff is ugly af. 
+        //TODO returns string because Invoke in update() wants it to do remove this stuff is ugly af. 
         pm.dashing = false; 
-        // Nathy TODO fov
+        //TODO originalFOV should be some kind of gloabal setting/ variable 
+        mouseLook.DoFov(orginalFov);
         return "";
     }
 
