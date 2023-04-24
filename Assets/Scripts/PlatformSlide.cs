@@ -7,11 +7,19 @@ public class PlatformSlide : MonoBehaviour
 
     [Header("References")]
     //public Transform transform;
+   public Transform orientation; 
 
     [Header("Orientation")]
     public Vector3 axis;
     public float distance;
-    public double speed;
+ 
+    
+    [Header("Detection")]
+    public LayerMask player;
+    public int wallCheckDistance;
+    public float minJumpHeight;
+    private RaycastHit playerTopHit;
+    private bool playerOnTop;
 
     [Header("Positions")]
     private Vector3 startPosition; 
@@ -32,6 +40,7 @@ public class PlatformSlide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        CheckForPlayer(); 
         if( Conductor.instance.onBeat() && !movedThisBeat ){
             movedThisBeat = true; 
             if(Vector3.Distance(targetPosition, transform.position) > Vector3.kEpsilon && !isReturning){
@@ -44,9 +53,23 @@ public class PlatformSlide : MonoBehaviour
             if(Vector3.Distance(startPosition, transform.position) < Vector3.kEpsilon){
                 isReturning = false; 
             }
+            // needs to be after moving of the block so it can update the player to the same position. 
+            if (playerOnTop){
+                MovePlayerAlong();
+            }
         }
         else if (!Conductor.instance.onBeat()){
             movedThisBeat = false; 
         }
+        print(playerOnTop);
+        print("plyerotophit"+playerTopHit);
+    }
+    private void CheckForPlayer(){
+        playerOnTop = Physics.Raycast(transform.position, orientation.up, out playerTopHit, wallCheckDistance, player);
+        //playerOnTop = Physics.BoxCast(transform.position, transform.localScale, transform.up, out playerTopHit, Quaternion.LookRotation(orientation.up), wallCheckDistance, player);
+    }
+
+    private void MovePlayerAlong(){
+        playerTopHit.transform.GetComponent<Transform>().position = new Vector3(transform.position.x, transform.position.y+0.1f, transform.position.z);
     }
 }

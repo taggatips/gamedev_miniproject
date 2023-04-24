@@ -5662,6 +5662,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1685175172, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 7616490109681109212, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: m_ClearFlags
       value: 2
@@ -5681,6 +5685,10 @@ PrefabInstance:
     - target: {fileID: 7616490109681109212, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: m_BackGroundColor.r
       value: 0.21960784
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616490109681109214, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7616490109728848118, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: m_RootOrder
@@ -5729,6 +5737,14 @@ PrefabInstance:
     - target: {fileID: 7616490109728848120, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
       propertyPath: m_Name
       value: FPS_Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616490109728848120, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7616490109896378433, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
+      propertyPath: m_Layer
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
@@ -6728,7 +6744,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7400543118429094189, guid: 197cd7f28ac8e664fb924a9ad669de8b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.107
+      value: -1.62
       objectReference: {fileID: 0}
     - target: {fileID: 7400543118429094189, guid: 197cd7f28ac8e664fb924a9ad669de8b, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6785,9 +6801,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 01f842c799a8b3049b14568468e019e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  axis: {x: 0, y: 0, z: 0}
-  distance: 0
-  speed: 0
+  orientation: {fileID: 5006512736048722645}
+  axis: {x: 1, y: 0, z: 0}
+  distance: 3
+  player:
+    serializedVersion: 2
+    m_Bits: 128
+  wallCheckDistance: 100
+  minJumpHeight: 0
+  tollerance: 0
+  steps: 3
 --- !u!1001 &8747679727688168825
 PrefabInstance:
   m_ObjectHideFlags: 0
