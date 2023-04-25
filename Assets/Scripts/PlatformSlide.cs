@@ -29,7 +29,9 @@ public class PlatformSlide : MonoBehaviour
     public float  steps;
     private Vector3 stepDistance; 
     private bool movedThisBeat = false; 
-    private bool isReturning = false; 
+    private bool isReturning = false;
+    public bool isMoving = false;
+    public Vector3 nextPosition; 
     void Start()
     {
         startPosition = transform.position; 
@@ -42,13 +44,18 @@ public class PlatformSlide : MonoBehaviour
     {
         CheckForPlayer(); 
         if( Conductor.instance.onBeat() && !movedThisBeat ){
+            isMoving = false; 
             movedThisBeat = true; 
             if(Vector3.Distance(targetPosition, transform.position) > Vector3.kEpsilon && !isReturning){
-                transform.position = transform.position + stepDistance; 
+                isMoving = true; 
+                transform.position = transform.position + stepDistance;
+                nextPosition = stepDistance;  
             }
             else if(Vector3.Distance(startPosition, transform.position) > Vector3.kEpsilon){
+                isMoving = true; 
                 isReturning = true; 
-                transform.position = transform.position - stepDistance; 
+                transform.position = transform.position - stepDistance;
+                nextPosition = -stepDistance; 
             }
             if(Vector3.Distance(startPosition, transform.position) < Vector3.kEpsilon){
                 isReturning = false; 

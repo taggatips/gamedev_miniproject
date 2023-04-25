@@ -30,7 +30,10 @@ public class PlayerMovement : MonoBehaviour
     // prevent the check to register on ground with the player 
     public LayerMask groundMask; 
     public float gravity = -9.81f;
-
+    // move with platform
+    public LayerMask movingPlatformMask;
+    private RaycastHit platform;
+    private bool isOnMovingPlatform;
     // stores our current velocity mostly for gravity 
     Vector3 velocity;
     bool isGrounded; 
@@ -46,6 +49,19 @@ public class PlayerMovement : MonoBehaviour
 
         MyInput();
         MovePlayer();
+        movingPlatformCheck();
+        print(isOnMovingPlatform);
+        if(isOnMovingPlatform && platform.transform.GetComponent<PlatformSlide>().isMoving) {
+            transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
+        }
+    }  
+
+    private void movingPlatformCheck()
+    {
+        isOnMovingPlatform = Physics.Raycast(groundCheck.position, -groundCheck.up, out platform, 1.0f, movingPlatformMask);
+        //playerOnTop = Physics.CheckSphere(groundCheck.position, groundDistance, movingPlatformMask, out platform);
+        //playerOnTop = Physics.BoxCast(transform.position, transform.localScale, transform.up, out playerTopHit, Quaternion.LookRotation(orientation.up), wallCheckDistance, player);
+
     }
 
     private void MyInput(){
