@@ -11,7 +11,7 @@ public class WinScreen : MonoBehaviour
     public void Start()
     {
         scoreText.text = "Score: " + LevelManager.score;
-        StartCoroutine(LoadNextLevel());
+        //StartCoroutine(LoadNextLevel());
     }
 
     public void GoToMainMenu()

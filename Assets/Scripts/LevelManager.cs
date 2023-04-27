@@ -9,29 +9,11 @@ public class LevelManager : MonoBehaviour
 {
     public static int score;
     public TextMeshProUGUI scoreText;
-    /* TODO : make LevelManager static and undestroyable
-    private static LevelManager _instance;
 
-    public static LevelManager instance
+    void Awake()
     {
-        get
-        {
-            return _instance;
-        }
+        DontDestroyOnLoad(gameObject);
     }
-
-    private void Awake()
-    {
-        if (_instance != null && _instance != this)
-        {
-            Destroy(this.gameObject);
-        }
-        else
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-    }*/
 
     // Start is called before the first frame update
     void Start()
@@ -58,12 +40,16 @@ public class LevelManager : MonoBehaviour
     {
         if (collider.transform.tag == "Player")
         {
-            StartCoroutine(WaitAndLoadWinScreen());
-            //StartCoroutine(LoadNextLevel("VisualTest"));
+            Scene scene = SceneManager.GetActiveScene();
+            StartCoroutine(LoadWinScreen());
+            if (scene.name == "FirstLevel")
+            {
+                StartCoroutine(LoadNextLevel("VisualTest"));
+            }
         }
     }
 
-    IEnumerator WaitAndLoadWinScreen()
+    IEnumerator LoadWinScreen()
     {
         yield return new WaitForSeconds(1);
         SceneManager.LoadScene("WinScreen");
@@ -71,7 +57,7 @@ public class LevelManager : MonoBehaviour
 
     IEnumerator LoadNextLevel(string level)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(5);
         SceneManager.LoadScene(level);
     }
 }
