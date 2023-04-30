@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6875,6 +6875,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1460301389}
     m_Modifications:
+    - target: {fileID: 1397508067485449398, guid: 197cd7f28ac8e664fb924a9ad669de8b, type: 3}
+      propertyPath: m_PlayAutomatically
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397508067485449398, guid: 197cd7f28ac8e664fb924a9ad669de8b, type: 3}
+      propertyPath: m_Animations.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1397508067485449398, guid: 197cd7f28ac8e664fb924a9ad669de8b, type: 3}
+      propertyPath: m_Animations.Array.data[0]
+      value: 
+      objectReference: {fileID: 7400000, guid: 91cea0295cf756945a531503607c218b, type: 2}
+    - target: {fileID: 1397508067485449398, guid: 197cd7f28ac8e664fb924a9ad669de8b, type: 3}
+      propertyPath: m_Animations.Array.data[1]
+      value: 
+      objectReference: {fileID: 7400000, guid: fd93f2f28e33ac14c9edb1c41a15fc76, type: 2}
     - target: {fileID: 2684323927970296956, guid: 197cd7f28ac8e664fb924a9ad669de8b, type: 3}
       propertyPath: m_Layer
       value: 8
@@ -6951,6 +6967,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   orientation: {fileID: 5006512736048722645}
+  animaton: {fileID: 0}
   axis: {x: 1, y: 0, z: 0}
   distance: 3
   player:

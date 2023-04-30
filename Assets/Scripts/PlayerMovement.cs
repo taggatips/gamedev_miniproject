@@ -50,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
         MyInput();
         MovePlayer();
         movingPlatformCheck();
-        print(isOnMovingPlatform);
+        //print(isOnMovingPlatform);
         if(isOnMovingPlatform && platform.transform.GetComponent<PlatformSlide>().isMoving) {
             transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
         }
