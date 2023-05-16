@@ -46,11 +46,10 @@ public class PlatformSlide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        CheckForPlayer();
+        print(isReturning);
         //animation stuff
         if(Conductor.instance.timeToNextBeat() <= 0.15f && !hasBlinked){
             animaton.Play("blinkVanish");
-            print("in blink vanish"); 
             hasBlinked = true; 
         }
 
@@ -59,23 +58,30 @@ public class PlatformSlide : MonoBehaviour
             isMoving = false; 
             movedThisBeat = true; 
             if(Vector3.Distance(targetPosition, transform.position) > Vector3.kEpsilon && !isReturning){
-                isMoving = true; 
                 transform.position = transform.position + stepDistance;
-                nextPosition = stepDistance;  
+                isMoving = true; 
+                //calculate if nex position needs to be postivie cuz the platoform changes direction. else the player makes 1 to many negative movements resulting in him falling of. 
+                if(Vector3.Distance(targetPosition, transform.position) < Vector3.kEpsilon){
+                    nextPosition = -stepDistance;
+                }else{
+                    nextPosition = stepDistance;
+                }
             }
             else if(Vector3.Distance(startPosition, transform.position) > Vector3.kEpsilon){
-                isMoving = true; 
                 isReturning = true; 
                 transform.position = transform.position - stepDistance;
-                nextPosition = -stepDistance; 
+                isMoving = true; 
+                //calculate if nex position needs to be postivie cuz the platoform changes direction. else the player makes 1 to many negative movements resulting in him falling of. 
+                if(Vector3.Distance(startPosition, transform.position) < Vector3.kEpsilon){
+                    nextPosition = stepDistance;
+                }else{
+                    nextPosition = -stepDistance;
+                }
             }
             if(Vector3.Distance(startPosition, transform.position) < Vector3.kEpsilon){
                 isReturning = false; 
             }
             // needs to be after moving of the block so it can update the player to the same position. 
-            if (playerOnTop){
-                MovePlayerAlong();
-            }
             animaton.Play("blinkAppear");
             hasBlinked = false; 
         }
@@ -84,13 +90,6 @@ public class PlatformSlide : MonoBehaviour
         }
   
     }
-    
-    private void CheckForPlayer(){
-        playerOnTop = Physics.Raycast(transform.position, orientation.up, out playerTopHit, wallCheckDistance, player);
-        //playerOnTop = Physics.BoxCast(transform.position, transform.localScale, transform.up, out playerTopHit, Quaternion.LookRotation(orientation.up), wallCheckDistance, player);
-    }
 
-    private void MovePlayerAlong(){
-        playerTopHit.transform.GetComponent<Transform>().position = new Vector3(transform.position.x, transform.position.y+0.1f, transform.position.z);
-    }
+
 }

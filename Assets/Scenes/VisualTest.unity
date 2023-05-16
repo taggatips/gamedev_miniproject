@@ -6204,12 +6204,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4054201478790351394, guid: fc567e64e6405784b86475f33f720569, type: 3}
       propertyPath: songBpm
-      value: 120
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 4054201478790351395, guid: fc567e64e6405784b86475f33f720569, type: 3}
       propertyPath: m_audioClip
       value: 
-      objectReference: {fileID: 8300000, guid: b6b962220bf56c6408fbd2cd1357d82f, type: 3}
+      objectReference: {fileID: 8300000, guid: f380b07789c9b5d41878417fd67c6206, type: 3}
     - target: {fileID: 4054201478790351397, guid: fc567e64e6405784b86475f33f720569, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -6498,6 +6498,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1460301389}
     m_Modifications:
+    - target: {fileID: 4751265093618344343, guid: 607aec573124344408b7caef14bc5948, type: 3}
+      propertyPath: distance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 4751265093618344343, guid: 607aec573124344408b7caef14bc5948, type: 3}
       propertyPath: m_Enabled
       value: 1

@@ -39,11 +39,16 @@ public class PlayerMovement : MonoBehaviour
     bool isGrounded; 
     float horizontalInput;
     float verticalInput;
+    private bool playerHasMovedThisBlink = false; 
 
     // Update is called once per frame
     
     void Update()
-    {
+    { 
+        //todoremove 
+        if (Input.GetKeyDown("i")){
+            controller.Move(new Vector3(0f,1f,0f));
+        }
         // Check if grounded in a spehere around the object GroundCheck at the bottom of the player (point, radius, <what to avoid>)
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
@@ -52,7 +57,19 @@ public class PlayerMovement : MonoBehaviour
         movingPlatformCheck();
         //print(isOnMovingPlatform);
         if(isOnMovingPlatform && platform.transform.GetComponent<PlatformSlide>().isMoving) {
-            transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
+            //print("tranform pos" + transform.position);
+            //print("platform next" + platform.transform.GetComponent<PlatformSlide>().nextPosition);
+            if(!playerHasMovedThisBlink){
+                //print("incondition");
+                //Uprint("position " + transform.position);
+                //print("target poistion " + ( platform.transform.GetComponent<PlatformSlide>().nextPosition));
+                //transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
+                controller.Move(platform.transform.GetComponent<PlatformSlide>().nextPosition);
+                playerHasMovedThisBlink = true; 
+            }
+            //transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
+        }else{
+            playerHasMovedThisBlink = false; 
         }
     }  
 
@@ -102,7 +119,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // calculate falling velocity
-        velocity.y += gravity * Time.deltaTime; 
+        //velocity.y += gravity * Time.deltaTime; 
         // delta y = 0.5 *g * t^2
         if(! dashing){
             controller.Move(velocity * Time.deltaTime); 
