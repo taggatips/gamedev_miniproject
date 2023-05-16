@@ -478,6 +478,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d71fdda05fe3f344dada54a77f2c3ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetPosition: {x: -5.39, y: 0, z: 6.79}
 --- !u!1 &486354929 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7616490109728848120, guid: f39eabb3b299fdf4586ab64f0feaef4c, type: 3}
