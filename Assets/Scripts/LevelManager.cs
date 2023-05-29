@@ -9,9 +9,12 @@ public class LevelManager : MonoBehaviour
 {
     public static int score;
     public TextMeshProUGUI scoreText;
+    //LevelManager instance
+    public static LevelManager instance; 
 
     void Awake()
     {
+        instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -36,22 +39,20 @@ public class LevelManager : MonoBehaviour
         scoreText.text = "Score: " + score;
     }
 
-    void OnTriggerEnter(Collider collider)
-    {
-        if (collider.transform.tag == "Player")
+    public void TriggerLoad(){
+        Scene scene = SceneManager.GetActiveScene();
+        StartCoroutine(LoadWinScreen());
+        if( scene.name == "TutorialLevel")
         {
-            Scene scene = SceneManager.GetActiveScene();
-            StartCoroutine(LoadWinScreen());
-            if (scene.name == "FirstLevel")
-            {
-                StartCoroutine(LoadNextLevel("VisualTest"));
-            }
-            if( scene.name == "TutorialLevel")
-            {
-                StartCoroutine(LoadNextLevel("FirstLevel"));
-            }
+            StartCoroutine(LoadNextLevel("FirstLevel"));
         }
+        if (scene.name == "FirstLevel")
+        {
+            StartCoroutine(LoadNextLevel("VisualTest"));
+        }
+
     }
+
 
     IEnumerator LoadWinScreen()
     {
