@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
     
     public void PlayGame()
     {
-        SceneManager.LoadScene("VisualTest");
+        SceneManager.LoadScene("TutorialLevel");
     }
 
     public void QuitGame()

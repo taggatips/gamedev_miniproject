@@ -9,6 +9,9 @@ public class Dashing : MonoBehaviour
     public Transform playerCam;
     private PlayerMovement pm;
     private Rigidbody rb; 
+    //an AudioSource attached to this GameObject that will play the music.
+    public AudioSource musicSource;
+
 
     [Header("CameraEffects")]
     public MouseLook mouseLook; 
@@ -31,6 +34,8 @@ public class Dashing : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         pm = GetComponent<PlayerMovement>(); 
+        //Load the AudioSource attached to the Conductor GameObject
+        musicSource = GetComponent<AudioSource>();
     }
      // Update is called once per frame
     void Update()
@@ -50,6 +55,8 @@ public class Dashing : MonoBehaviour
         Vector3 forceToApply = transform.forward * dasSpeed + transform.up * dashUpwardForce;
         // Set FOV and save og value
         mouseLook.DoFov(dashFov);
+        //Start the dash sound
+        musicSource.Play();
         while(Time.time < startTitme + dashDuration){
             pm.controller.Move(forceToApply * Time.deltaTime);
             yield return null; 

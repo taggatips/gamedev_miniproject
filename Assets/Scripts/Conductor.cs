@@ -70,4 +70,8 @@ public class Conductor : MonoBehaviour
         }
         return onBeat; 
     }
+
+    public float timeToNextBeat(){
+        return songPosition % secPerBeat; 
+    }
 }

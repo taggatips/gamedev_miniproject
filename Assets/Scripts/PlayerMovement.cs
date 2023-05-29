@@ -30,22 +30,64 @@ public class PlayerMovement : MonoBehaviour
     // prevent the check to register on ground with the player 
     public LayerMask groundMask; 
     public float gravity = -9.81f;
-
+    // move with platform
+    public LayerMask movingPlatformMask;
+    private RaycastHit platform;
+    private bool isOnMovingPlatform;
     // stores our current velocity mostly for gravity 
     Vector3 velocity;
     bool isGrounded; 
     float horizontalInput;
     float verticalInput;
+    private bool playerHasMovedThisBlink = false; 
+
+    private int updates; 
 
     // Update is called once per frame
     
     void Update()
-    {
+    { 
+        //todoremove 
+        if (Input.GetKeyDown("i")){
+            controller.Move(new Vector3(0f,1f,0f));
+        }
         // Check if grounded in a spehere around the object GroundCheck at the bottom of the player (point, radius, <what to avoid>)
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
 
         MyInput();
         MovePlayer();
+        movingPlatformCheck();
+        //print(isOnMovingPlatform);
+        if(isOnMovingPlatform && platform.transform.GetComponent<PlatformSlide>().isMoving) {
+            print(platform.transform.GetComponent<PlatformSlide>().orientation.position.x);
+            
+            
+            //controller.Move(platform.transform.GetComponent<PlatformSlide>().orientation.position);
+            //print("tranform pos" + transform.position);
+            //print("platform next" + platform.transform.GetComponent<PlatformSlide>().nextPosition);
+            if(!playerHasMovedThisBlink){
+                controller.transform.position = new Vector3(platform.transform.GetComponent<PlatformSlide>().orientation.position.x,controller.transform.position.y,controller.transform.position.z);
+                //print("incondition");
+                //print("position " + transform.position);
+                //print("target poistion " + ( platform.transform.GetComponent<PlatformSlide>().nextPosition));
+                //print("position of platform" + platform.transform.GetComponent<PlatformSlide>().orientation.position); 
+                //transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
+                //controller.Move(platform.transform.GetComponent<PlatformSlide>().nextPosition);
+                //playerHasMovedThisBlink = true; 
+            }
+            //transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
+        }else{
+            playerHasMovedThisBlink = false; 
+        }
+    }  
+
+    private void movingPlatformCheck()
+    {
+        isOnMovingPlatform = Physics.Raycast(groundCheck.position, -groundCheck.up, out platform, 1.0f, movingPlatformMask);
+        
+        //playerOnTop = Physics.CheckSphere(groundCheck.position, groundDistance, movingPlatformMask, out platform);
+        //playerOnTop = Physics.BoxCast(transform.position, transform.localScale, transform.up, out playerTopHit, Quaternion.LookRotation(orientation.up), wallCheckDistance, player);
+
     }
 
     private void MyInput(){
