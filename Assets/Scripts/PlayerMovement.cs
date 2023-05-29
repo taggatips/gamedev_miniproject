@@ -41,6 +41,8 @@ public class PlayerMovement : MonoBehaviour
     float verticalInput;
     private bool playerHasMovedThisBlink = false; 
 
+    private int updates; 
+
     // Update is called once per frame
     
     void Update()
@@ -57,15 +59,21 @@ public class PlayerMovement : MonoBehaviour
         movingPlatformCheck();
         //print(isOnMovingPlatform);
         if(isOnMovingPlatform && platform.transform.GetComponent<PlatformSlide>().isMoving) {
+            print(platform.transform.GetComponent<PlatformSlide>().orientation.position.x);
+            
+            
+            //controller.Move(platform.transform.GetComponent<PlatformSlide>().orientation.position);
             //print("tranform pos" + transform.position);
             //print("platform next" + platform.transform.GetComponent<PlatformSlide>().nextPosition);
             if(!playerHasMovedThisBlink){
+                controller.transform.position = new Vector3(platform.transform.GetComponent<PlatformSlide>().orientation.position.x,controller.transform.position.y,controller.transform.position.z);
                 //print("incondition");
-                //Uprint("position " + transform.position);
+                //print("position " + transform.position);
                 //print("target poistion " + ( platform.transform.GetComponent<PlatformSlide>().nextPosition));
+                //print("position of platform" + platform.transform.GetComponent<PlatformSlide>().orientation.position); 
                 //transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
-                controller.Move(platform.transform.GetComponent<PlatformSlide>().nextPosition);
-                playerHasMovedThisBlink = true; 
+                //controller.Move(platform.transform.GetComponent<PlatformSlide>().nextPosition);
+                //playerHasMovedThisBlink = true; 
             }
             //transform.position = transform.position + platform.transform.GetComponent<PlatformSlide>().nextPosition;
         }else{
@@ -76,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
     private void movingPlatformCheck()
     {
         isOnMovingPlatform = Physics.Raycast(groundCheck.position, -groundCheck.up, out platform, 1.0f, movingPlatformMask);
+        
         //playerOnTop = Physics.CheckSphere(groundCheck.position, groundDistance, movingPlatformMask, out platform);
         //playerOnTop = Physics.BoxCast(transform.position, transform.localScale, transform.up, out playerTopHit, Quaternion.LookRotation(orientation.up), wallCheckDistance, player);
 
@@ -119,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // calculate falling velocity
-        //velocity.y += gravity * Time.deltaTime; 
+        velocity.y += gravity * Time.deltaTime; 
         // delta y = 0.5 *g * t^2
         if(! dashing){
             controller.Move(velocity * Time.deltaTime); 

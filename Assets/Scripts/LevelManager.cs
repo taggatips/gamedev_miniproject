@@ -46,6 +46,10 @@ public class LevelManager : MonoBehaviour
             {
                 StartCoroutine(LoadNextLevel("VisualTest"));
             }
+            if( scene.name == "TutorialLevel")
+            {
+                StartCoroutine(LoadNextLevel("FirstLevel"));
+            }
         }
     }
 

@@ -46,7 +46,6 @@ public class PlatformSlide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(isReturning);
         //animation stuff
         if(Conductor.instance.timeToNextBeat() <= 0.15f && !hasBlinked){
             animaton.Play("blinkVanish");
