@@ -50,6 +50,10 @@ public class LevelManager : MonoBehaviour
         {
             StartCoroutine(LoadNextLevel("VisualTest"));
         }
+        if(scene.name == "VisualTest"){
+            //end game here. 
+            StartCoroutine(LoadNextLevel("Menu"));
+        }
 
     }
 
